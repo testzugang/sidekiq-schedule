@@ -2,6 +2,8 @@ PATH
   remote: .
   specs:
     sidekiq_schedule (0.0.1)
+      cron2english
+      parse-cron
       rails (~> 3.2.21)
       sidekiq (= 3.1.4)
 
@@ -79,6 +81,7 @@ GEM
       rspec-logsplit (>= 0.1.2)
       timers (>= 4.1.1)
     connection_pool (2.2.0)
+    cron2english (0.1.5)
     dotenv (2.0.2)
     erubis (2.7.0)
     hike (1.2.3)
@@ -95,6 +98,7 @@ GEM
     mime-types (1.25.1)
     multi_json (1.11.2)
     nenv (0.2.0)
+    parse-cron (0.1.4)
     polyglot (0.3.5)
     rack (1.4.7)
     rack-cache (1.2)
@@ -125,12 +129,16 @@ GEM
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     rspec-logsplit (0.1.3)
+    rufus-scheduler (3.1.4)
     sidekiq (3.1.4)
       celluloid (>= 0.15.2)
       connection_pool (>= 2.0.0)
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
+    sidekiq-cron (0.3.1)
+      rufus-scheduler (>= 2.0.24)
+      sidekiq (>= 2.17.3)
     sprockets (2.2.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -151,6 +159,7 @@ PLATFORMS
 
 DEPENDENCIES
   jquery-rails
+  sidekiq-cron
   sidekiq_schedule!
   sqlite3
 

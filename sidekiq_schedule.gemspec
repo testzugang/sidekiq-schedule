@@ -17,6 +17,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2.21"
   s.add_dependency "sidekiq", "3.1.4"
+  s.add_dependency "cron2english"
+  s.add_dependency "parse-cron"
 
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "sidekiq-cron"
 end
