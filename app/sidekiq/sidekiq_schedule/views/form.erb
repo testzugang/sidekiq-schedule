@@ -1,0 +1,30 @@
+<header class='row'>
+  <div class='span5 col-sm-5'>
+    <h3><%= t 'NewScheduledJob' %></h3>
+  </div>
+</header>
+
+<form accept-charset="UTF-8" action="<%= root_path %>scheduled_job/create" id="new_scheduled_job" method="post">
+  <%= csrf_tag if respond_to?(:csrf_tag) %>
+  <div class="field">
+    <label for="scheduled_job_name">Name</label><br/>
+    <input id="scheduled_job_name" name="scheduled_job[name]" size="30" type="text" value="<%= @job.name %>"/>
+  </div>
+  <div class="field">
+    <label for="scheduled_job_cron">Cron</label><br/>
+    <input id="scheduled_job_cron" name="scheduled_job[cron]" size="30" type="text" value="<%= @job.cron %>"/>
+  </div>
+  <input id="scheduled_job_last_error" name="scheduled_job[last_error]" type="hidden"/>
+
+  <div class="field">
+    <label>Job auswählen</label>
+    <select id="scheduled_job_worker_class" name="scheduled_job[worker_class]">
+      <% @workers.each do |worker| %>
+          <option value="<%= worker %>"<%= (worker.eql? @job.worker_class) ? ' selected' : '' %>><%= worker %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="actions">
+    <input class='btn btn-xs pull-left' type="submit" name="enable" value="<%= t('Save') %>"/>
+  </div>
+</form>

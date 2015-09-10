@@ -1,0 +1,70 @@
+<header class='row'>
+  <div class='span5 col-sm-5'>
+    <h3><%=t 'ScheduledJobs' %></h3>
+  </div>
+</header>
+<style>
+
+  .btn-success, .btn-warning, .btn-danger, .btn-info {
+      background-image: none;
+  }
+
+</style>
+
+<% if @jobs.size > 0 %>
+
+    <table class="table table-hover table-bordered table-striped table-white">
+      <thead>
+      <th><%= t('Name') %></th>
+      <th><%= t('Worker') %></th>
+      <th><%= t('Cron') %></th>
+      <th><%= t('Next enque') %></th>
+      <th width="180"><%= t('Actions')%></th>
+      <th width="100"><%= t('Administration')%></th>
+      </thead>
+
+      <tbody>
+      <% @jobs.sort{|a,b| a.name <=> b.name }.each_with_index do |job, index| %>
+          <% style = "#{job.enabled? ? "" : "background: #ecc"}" %>
+          <tr>
+            <td style="<%= style %>"><%= job.name %></td>
+            <td style="<%= style %>"><%= job.worker_class %></td>
+            <td style="<%= style %>"><%= job.cron %></td>
+            <% cron_parser = CronParser.new(job.cron) %>
+            <td style="<%= style %>"><b><%= cron_parser.next(Time.now).to_s %></b></td>
+            <td style="<%= style %>">
+                  <form action="<%= root_path %>scheduled_job/<%= job.id %>/enque" method="post">
+                    <%= csrf_tag if respond_to?(:csrf_tag) %>
+                    <input class='btn btn-xs pull-left' type="submit" name="enque" value="<%= t('EnqueueNow') %>"/>
+                  </form>
+              <% if job.enabled? %>
+                  <form action="<%= root_path %>scheduled_job/<%= job.id %>/disable" method="post">
+                    <%= csrf_tag if respond_to?(:csrf_tag) %>
+                    <input class='btn btn-xs btn-warning pull-left' type="submit" name="disable" value="<%= t('Disable') %>"/>
+                  </form>
+              <% else %>
+                  <form action="<%= root_path %>scheduled_job/<%= job.id %>/enable" method="post">
+                    <%= csrf_tag if respond_to?(:csrf_tag) %>
+                    <input class='btn btn-xs btn-success pull-left' type="submit" name="enable" value="<%= t('Enable') %>"/>
+                  </form>
+              <% end %>
+            </td>
+            <td style="<%= style %>">
+              <form action="<%= root_path %>scheduled_job/<%= job.id %>/edit" method="post">
+                <%= csrf_tag if respond_to?(:csrf_tag) %>
+                <input class='btn btn-xs btn-info pull-left' type="submit" name="edit" value="<%= t('Edit') %>"/>
+              </form>
+              <form action="<%= root_path %>scheduled_job/<%= job.id %>/delete" method="post">
+                <%= csrf_tag if respond_to?(:csrf_tag) %>
+                <input class='btn btn-xs btn-danger pull-left' type="submit" name="delete" value="<%= t('Delete') %>" data-confirm="<%= t('AreYouSureDeleteScheduledJob', :job => job.name) %>"/>
+              </form>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <span class='alert alert-success'><%= t('NoScheduledJobsFound') %></span>
+<% end %>
+
+<a href="scheduled_job/new" class="btn btn-default"><%= t('CreateNewScheduledJob') %></a>
