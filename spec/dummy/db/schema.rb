@@ -11,18 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150312220133) do
+ActiveRecord::Schema.define(:version => 20150315211301) do
 
   create_table "sidekiq_schedule_scheduled_jobs", :force => true do |t|
     t.string   "name"
     t.string   "cron"
     t.integer  "worker_id"
     t.string   "last_error"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "job_class"
     t.string   "worker_class"
     t.boolean  "enabled"
+    t.datetime "last_scheduled"
   end
 
 end
