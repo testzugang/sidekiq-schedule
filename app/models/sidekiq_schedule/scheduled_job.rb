@@ -60,7 +60,10 @@ module SidekiqSchedule
     end
 
     def enqueue!
-      # push job to sidekiq now
+      worker_class = self.worker_class.constantize
+      worker_class.perform_async
+      self.last_scheduled = DateTime.now
+      self.save
     end
 
   end

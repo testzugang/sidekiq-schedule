@@ -1,1 +1,3 @@
-SidekiqSchedule.worker_classes = [String.name, Integer.name]
+require 'dummy_worker'
+
+SidekiqSchedule.worker_classes = [DummyWorker.name]

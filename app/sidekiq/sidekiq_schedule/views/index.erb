@@ -33,9 +33,9 @@
             <% cron_parser = CronParser.new(job.cron) %>
             <td style="<%= style %>"><b><%= cron_parser.next(Time.now).to_s %></b></td>
             <td style="<%= style %>">
-                  <form action="<%= root_path %>scheduled_job/<%= job.id %>/enque" method="post">
+                  <form action="<%= root_path %>scheduled_job/<%= job.id %>/enqueue" method="post">
                     <%= csrf_tag if respond_to?(:csrf_tag) %>
-                    <input class='btn btn-xs pull-left' type="submit" name="enque" value="<%= t('EnqueueNow') %>"/>
+                    <input class='btn btn-xs pull-left' type="submit" name="enqueue" value="<%= t('EnqueueNow') %>"/>
                   </form>
               <% if job.enabled? %>
                   <form action="<%= root_path %>scheduled_job/<%= job.id %>/disable" method="post">
