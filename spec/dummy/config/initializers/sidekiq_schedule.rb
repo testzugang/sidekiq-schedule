@@ -1,0 +1,1 @@
+SidekiqSchedule.worker_classes = [String.name, Integer.name]
