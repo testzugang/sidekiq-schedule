@@ -25,7 +25,7 @@ module SidekiqSchedule
       if job
         worker_class = job.worker_class.constantize
         cron_parser = CronParser.new(job.cron)
-        next_run = cron_parser.next(Time.now)
+        next_run = cron_parser.next(DateTime.now)
         countdown = (next_run - DateTime.now).to_i
         worker_class.perform_in(countdown.seconds, job.id)
       else
