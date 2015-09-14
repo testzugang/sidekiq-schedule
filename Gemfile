@@ -3,12 +3,13 @@ source "https://rubygems.org"
 # Declare your gem's dependencies in sidekiq_schedule.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
+gem 'sidekiq', '3.1.4'
 gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-gem 'sidekiq', '3.1.4'
 gem 'sinatra', require: nil
+gem 'celluloid-essentials'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
