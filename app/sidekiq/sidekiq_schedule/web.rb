@@ -1,15 +1,11 @@
 require "sidekiq_schedule/web_extension"
 
-# module SidekiqSchedule
+module Web
 
-  module Web
+  if defined?(Sidekiq::Web)
+    Sidekiq::Web.register SidekiqSchedule::WebExtension
 
-    if defined?(Sidekiq::Web)
-      Sidekiq::Web.register SidekiqSchedule::WebExtension
-
-      Sidekiq::Web.tabs["Scheduled Jobs"] = "scheduled_jobs"
-    end
-
+    Sidekiq::Web.tabs["Scheduled Jobs"] = "scheduled_jobs"
   end
 
-# end
+end

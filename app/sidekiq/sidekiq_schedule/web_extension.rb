@@ -1,3 +1,5 @@
+require 'cron_parser'
+
 module SidekiqSchedule
   module WebExtension
 

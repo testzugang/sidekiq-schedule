@@ -1,3 +1,4 @@
+require 'cron_parser'
 require 'sidekiq/util'
 require 'sidekiq/actor'
 
@@ -15,15 +16,24 @@ module SidekiqSchedule
 
     def poll
       watchdog('scheduled poller thread died!') do
-        logger.info 'wait'
+        now = DateTime.now
+        offset = Time.zone_offset(Time.now.zone)
 
-        now = Time.now
         logger.info "poll #{now}"
 
         begin
 
           ScheduledJob.all.each do |job|
-            logger.info "job: #{job.name}  #{job.worker_class}  #{job.cron}"
+            if job.enabled
+              logger.info "Job: #{job.name}  #{job.worker_class}  #{job.cron}"
+              last_scheduled = (job.last_scheduled || job.created_at) + offset.seconds
+              cron_parser = CronParser.new(job.cron)
+              next_run = DateTime.parse(cron_parser.next(last_scheduled).to_s, DateTime)
+              logger.info "last scheduled #{last_scheduled}, next run #{next_run.to_s}"
+              if next_run.to_i < now.to_i
+                job.enqueue!
+              end
+            end
           end
 
         rescue Exception => ex
