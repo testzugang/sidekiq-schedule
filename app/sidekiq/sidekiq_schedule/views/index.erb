@@ -1,6 +1,6 @@
 <header class='row'>
   <div class='span5 col-sm-5'>
-    <h3><%=t 'ScheduledJobs' %></h3>
+    <h3><%=t 'sidekiq_schedule.scheduled_jobs' %></h3>
   </div>
 </header>
 <style>
@@ -15,12 +15,12 @@
 
     <table class="table table-hover table-bordered table-striped table-white">
       <thead>
-      <th><%= t('Name') %></th>
-      <th><%= t('Worker') %></th>
-      <th><%= t('Cron') %></th>
-      <th><%= t('Next enque') %></th>
-      <th width="180"><%= t('Actions')%></th>
-      <th width="100"><%= t('Administration')%></th>
+      <th><%= t('sidekiq_schedule.name') %></th>
+      <th><%= t('sidekiq_schedule.worker') %></th>
+      <th><%= t('sidekiq_schedule.cron') %></th>
+      <th><%= t('sidekiq_schedule.next_enque') %></th>
+      <th width="180"><%= t('sidekiq_schedule.actions')%></th>
+      <th width="100"><%= t('sidekiq_schedule.administration')%></th>
       </thead>
 
       <tbody>
@@ -35,28 +35,28 @@
             <td style="<%= style %>">
                   <form action="<%= root_path %>scheduled_job/<%= job.id %>/enqueue" method="post">
                     <%= csrf_tag if respond_to?(:csrf_tag) %>
-                    <input class='btn btn-xs pull-left' type="submit" name="enqueue" value="<%= t('EnqueueNow') %>"/>
+                    <input class='btn btn-xs pull-left' type="submit" name="enqueue" value="<%= t('sidekiq_schedule.enqueue_now') %>"/>
                   </form>
               <% if job.enabled? %>
                   <form action="<%= root_path %>scheduled_job/<%= job.id %>/disable" method="post">
                     <%= csrf_tag if respond_to?(:csrf_tag) %>
-                    <input class='btn btn-xs btn-warning pull-left' type="submit" name="disable" value="<%= t('Disable') %>"/>
+                    <input class='btn btn-xs btn-warning pull-left' type="submit" name="disable" value="<%= t('sidekiq_schedule.disable') %>"/>
                   </form>
               <% else %>
                   <form action="<%= root_path %>scheduled_job/<%= job.id %>/enable" method="post">
                     <%= csrf_tag if respond_to?(:csrf_tag) %>
-                    <input class='btn btn-xs btn-success pull-left' type="submit" name="enable" value="<%= t('Enable') %>"/>
+                    <input class='btn btn-xs btn-success pull-left' type="submit" name="enable" value="<%= t('sidekiq_schedule.enable') %>"/>
                   </form>
               <% end %>
             </td>
             <td style="<%= style %>">
               <form action="<%= root_path %>scheduled_job/<%= job.id %>/edit" method="post">
                 <%= csrf_tag if respond_to?(:csrf_tag) %>
-                <input class='btn btn-xs btn-info pull-left' type="submit" name="edit" value="<%= t('Edit') %>"/>
+                <input class='btn btn-xs btn-info pull-left' type="submit" name="edit" value="<%= t('sidekiq_schedule.edit') %>"/>
               </form>
               <form action="<%= root_path %>scheduled_job/<%= job.id %>/delete" method="post">
                 <%= csrf_tag if respond_to?(:csrf_tag) %>
-                <input class='btn btn-xs btn-danger pull-left' type="submit" name="delete" value="<%= t('Delete') %>" data-confirm="<%= t('AreYouSureDeleteScheduledJob', :job => job.name) %>"/>
+                <input class='btn btn-xs btn-danger pull-left' type="submit" name="delete" value="<%= t('sidekiq_schedule.delete') %>" data-confirm="<%= t('sidekiq_schedule.are_you_sure_delete_scheduled_job', :job => job.name) %>"/>
               </form>
             </td>
           </tr>
@@ -64,7 +64,7 @@
       </tbody>
     </table>
 <% else %>
-    <span class='alert alert-success'><%= t('NoScheduledJobsFound') %></span>
+    <span class='alert alert-success'><%= t('sidekiq_schedule.no_scheduled_jobs_found') %></span>
 <% end %>
 
-<a href="scheduled_job/new" class="btn btn-default"><%= t('CreateNewScheduledJob') %></a>
+<a href="scheduled_job/new" class="btn btn-default"><%= t('sidekiq_schedule.create_new_scheduled_job') %></a>
