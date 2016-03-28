@@ -27,7 +27,7 @@ module SidekiqSchedule
         cron_parser = CronParser.new(job.cron)
         next_run = cron_parser.next(DateTime.now)
         countdown = (next_run - DateTime.now).to_i
-        worker_class.perform_in(countdown.seconds, job.id)
+        worker_class.perform_in(countdown.seconds)
       else
         puts 'Job could not be scheduled: Was nil'
       end
@@ -36,7 +36,7 @@ module SidekiqSchedule
     def self.run job
       if job
         worker_class = job.worker_class.constantize
-        worker_class.perform_async(job.id)
+        worker_class.perform_async
       else
         puts 'Job could not be scheduled: Was nil'
       end
