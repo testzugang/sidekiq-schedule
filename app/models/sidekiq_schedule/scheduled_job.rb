@@ -27,7 +27,7 @@ module SidekiqSchedule
         cron_parser = CronParser.new(job.cron)
         next_run = cron_parser.next(DateTime.now)
         countdown = (next_run - DateTime.now).to_i
-        worker_class.perform_in(countdown.seconds)
+        worker_class.perform_in(countdown.seconds, params: job.params)
       else
         puts 'Job could not be scheduled: Was nil'
       end
@@ -36,7 +36,7 @@ module SidekiqSchedule
     def self.run job
       if job
         worker_class = job.worker_class.constantize
-        worker_class.perform_async
+        worker_class.perform_async(params: job.params)
       else
         puts 'Job could not be scheduled: Was nil'
       end
@@ -53,7 +53,7 @@ module SidekiqSchedule
       jobs.each(&:delete)
     end
 
-    attr_accessible :cron, :last_error, :name, :worker_class, :worker_id, :enabled, :last_scheduled
+    attr_accessible :cron, :last_error, :name, :worker_class, :worker_id, :enabled, :last_scheduled, :params
 
     def enabled?
       enabled
@@ -61,7 +61,7 @@ module SidekiqSchedule
 
     def enqueue!
       worker_class = self.worker_class.constantize
-      worker_class.perform_async
+      worker_class.perform_async(params: self.params)
       self.last_scheduled = DateTime.now
       self.save
     end

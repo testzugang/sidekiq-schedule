@@ -3,8 +3,9 @@ class DummyWorker
   include Sidekiq::Worker
   sidekiq_options :queue => :dummy
 
-  def perform
+  def perform (values)
     logger.info 'DummyWorker performing ...'
+    logger.info "params: #{values}"
   end
 
 end

@@ -14,6 +14,10 @@
     <label for="scheduled_job_cron">Cron</label><br/>
     <input id="scheduled_job_cron" name="scheduled_job[cron]" size="30" type="text" value="<%= @job.cron %>"/>
   </div>
+  <div class="field">
+    <label for="scheduled_job_params">Parameters</label><br/>
+    <textarea id="scheduled_job_params" name="scheduled_job[params]" cols="50" rows="6"><%= @job.params %></textarea>
+  </div>
   <input id="scheduled_job_last_error" name="scheduled_job[last_error]" type="hidden"/>
 
   <div class="field">
