@@ -25,12 +25,11 @@ module SidekiqSchedule
 
           ScheduledJob.all.each do |job|
             if job.enabled
-              logger.info "Job: #{job.name}  #{job.worker_class}  #{job.cron}"
               last_scheduled = (job.last_scheduled || job.created_at) + offset.seconds
               cron_parser = CronParser.new(job.cron)
               next_run = DateTime.parse(cron_parser.next(last_scheduled).to_s, DateTime)
-              logger.info "last scheduled #{last_scheduled}, next run #{next_run.to_s}"
               if next_run.to_i < now.to_i
+                logger.info "Job: #{job.name}  #{job.worker_class}  #{job.cron}  last scheduled #{last_scheduled}, next run #{next_run.to_s}"
                 job.enqueue!
               end
             end
