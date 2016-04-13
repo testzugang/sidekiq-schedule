@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
-  s.add_dependency "rails", "~> 3.2.21"
+  s.add_dependency "rails", "~> 4.2.6"
   s.add_dependency "cron2english"
   s.add_dependency "parse-cron"
 

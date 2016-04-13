@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Declare your gem's dependencies in sidekiq_schedule.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
-gem 'sidekiq', '3.1.4'
+gem 'sidekiq', '~> 4.1.1'
 gemspec
 
 # jquery-rails is used by the dummy application
