@@ -53,7 +53,7 @@ module SidekiqSchedule
       jobs.each(&:delete)
     end
 
-    attr_accessible :cron, :last_error, :name, :worker_class, :worker_id, :enabled, :last_scheduled, :params
+    attr_protected :cron, :last_error, :name, :worker_class, :worker_id, :enabled, :last_scheduled, :params
 
     def enabled?
       enabled

@@ -1,12 +1,10 @@
 require 'cron_parser'
 require 'sidekiq/util'
-require 'sidekiq/actor'
 
 module SidekiqSchedule
 
   class Poller
     include Sidekiq::Util
-    include Sidekiq::Actor
 
     def start
       watchdog('scheduled poller thread died!') do

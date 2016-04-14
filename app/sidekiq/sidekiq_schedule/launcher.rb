@@ -1,13 +1,11 @@
 require 'sidekiq/launcher'
 require 'sidekiq/util'
-require 'sidekiq/actor'
 require_relative 'poller'
 
 module Sidekiq
 
   class Launcher
     include Util
-    include Actor
 
     attr_reader :schedule_poller
 
